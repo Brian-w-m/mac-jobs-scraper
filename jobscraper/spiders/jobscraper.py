@@ -1,33 +1,22 @@
 # Install packages in miniconda (base)
-# Run scrapy crawl prospl-scraper -O output.json
+# Run scrapy crawl jobspider -O output.json
 
 import scrapy
-from scrapy_splash import SplashRequest
 import os
 from groq import Groq
 from dotenv import load_dotenv
 
 class JobSpider(scrapy.Spider):
     name = "jobspider"
-    start_urls = [
-        "https://au.gradconnection.com/internships/computer-science/australia/"
-    ]
-
-    def start_requests(self):
-        for url in self.start_urls:
-            yield SplashRequest(url, self.parse, cache_args={'expiration': 3600})
+    start_urls = ["https://au.gradconnection.com/internships/computer-science/australia/"]
 
     def parse(self, response):
-        # Extract all job links from the page
-        job_links = response.css('a.box-header-title::attr(href)').getall()
+        # Extract links to individual job postings
+        job_links = response.css("a.box-header-title::attr(href)").getall()
 
-        # Iterate through each job link and scrape job details
-        for job_link in job_links:
-            # Construct the full URL for the job listing
-            full_url = response.urljoin(job_link)
-            
-            # Send a request to the job page
-            yield SplashRequest(full_url, self.parse_job_details, cache_args={'expiration': 3600})
+        for link in job_links:
+            # Follow each job link
+            yield response.follow(link, self.parse_job_details)
 
     def parse_job_details(self, response):
         # Extract job details from the job page
