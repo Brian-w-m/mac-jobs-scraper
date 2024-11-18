@@ -5,6 +5,7 @@
 import scrapy
 from playwright.sync_api import sync_playwright
 from dotenv import load_dotenv
+from groq import Groq
 import os
 
 class LLMJobSpider(scrapy.Spider):
@@ -73,12 +74,37 @@ class LLMJobSpider(scrapy.Spider):
         job_title = response.css('h1.employers-profile-h1::text').get()
         job_description = response.css("div.content-panel-container.right-content-panel.padding-left *::text").getall()
         
+        load_dotenv()
+        client = Groq(
+            api_key=os.getenv("groq_KEY"),
+        )
+
+        chat_completion = client.chat.completions.create(
+            messages=[{
+                "role": "user",
+                "content": f"Here is the job description: {job_description}. Give me these details in this format without any extra text, so do not tell me that the details are below. For the job description, make a summary of the content given: ###Company: 'company' ###Job_description: 'job description' ###Closing_date: 'closing date' ###Work_rights: 'work rights' ###Discipline: 'discipline'",
+            }],
+            model="Llama3-8b-8192",
+        )
+        job_summary = chat_completion.choices[0].message.content
+
+        # Separate each piece of information
+        company = job_summary[job_summary.find("###Company")+12:job_summary.find("###Job_description")]
+        job_description = job_summary[job_summary.find("###Job_description")+20:job_summary.find("###Closing_date")]
+        closing_date = job_summary[job_summary.find("###Closing_date")+17:job_summary.find("###Work_rights")]
+        work_rights = job_summary[job_summary.find("###Work_rights")+16:job_summary.find("###Discipline")]
+        discipline = job_summary[job_summary.find("###Discipline")+15:]
+
         # Get the application link (no need to log in again)
         application_link = self.get_application_link(response.url)
 
         yield {
             "title": job_title,
-            "description": job_description,
+            "company": company,
+            "job_description": job_description,
+            "closing_date": closing_date,
+            "work_rights": work_rights,
+            "discipline": discipline,
             "application_link": application_link
         }
 
