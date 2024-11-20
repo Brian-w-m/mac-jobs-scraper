@@ -82,7 +82,7 @@ class LLMJobSpider(scrapy.Spider):
         chat_completion = client.chat.completions.create(
             messages=[{
                 "role": "user",
-                "content": f"Here is the job description: {job_description}. Give me these details in this format without any extra text, so do not tell me that the details are below. For the job description, make a summary of the content given: ###Company: 'company' ###Job_description: 'job description' ###Closing_date: 'closing date' ###Work_rights: 'work rights' ###Discipline: 'discipline'",
+                "content": f"Here is the job description: {job_description}. Give me these details in this format without any extra text, so do not tell me that the details are below. Ensure that each heading is the exact same. ###Company: 'company' ###Job_description: 'job_description' ###Closing_date: 'closing_date' ###Work_rights: 'work_rights' ###Discipline: 'discipline'",
             }],
             model="Llama3-8b-8192",
         )
