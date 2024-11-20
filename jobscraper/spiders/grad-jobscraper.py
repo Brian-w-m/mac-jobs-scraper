@@ -1,17 +1,15 @@
 # Install packages in miniconda (base)
-# Run scrapy crawl llmjobspider -O outputllm.json
-# scrapy shell https://au.gradconnection.com/employers/ey/jobs/ey-ey-vacationer-computer-science-program-6/
+# Run scrapy crawl jobspider -O output.json
 
 import scrapy
 from playwright.sync_api import sync_playwright
 from dotenv import load_dotenv
-from groq import Groq
 import os
 
-class LLMJobSpider(scrapy.Spider):
-    name = "llmspider"
+class JobSpider(scrapy.Spider):
+    name = "jobspider-grad"
     start_urls = ["https://au.gradconnection.com/internships/computer-science/australia/"]
-    
+
     # Store cookies here
     cookies = None
 
@@ -70,41 +68,30 @@ class LLMJobSpider(scrapy.Spider):
         #     yield response.follow(next_page, self.parse, cookies=self.cookies)
 
     def parse_job_details(self, response):
-        # Extract detailed information from each job page
+        # Extract job details from the job page
         job_title = response.css('h1.employers-profile-h1::text').get()
-        job_description = response.css("div.content-panel-container.right-content-panel.padding-left *::text").getall()
-        
-        load_dotenv()
-        client = Groq(
-            api_key=os.getenv("groq_KEY"),
-        )
-
-        chat_completion = client.chat.completions.create(
-            messages=[{
-                "role": "user",
-                "content": f"Here is the job description: {job_description}. Give me these details in this format without any extra text, so do not tell me that the details are below. Ensure that each heading is the exact same. ###Company: 'company' ###Job_description: 'job_description' ###Closing_date: 'closing_date' ###Work_rights: 'work_rights' ###Discipline: 'discipline'",
-            }],
-            model="Llama3-8b-8192",
-        )
-        job_summary = chat_completion.choices[0].message.content
-
-        # Separate each piece of information
-        company = job_summary[job_summary.find("###Company")+12:job_summary.find("###Job_description")]
-        job_description = job_summary[job_summary.find("###Job_description")+20:job_summary.find("###Closing_date")]
-        closing_date = job_summary[job_summary.find("###Closing_date")+17:job_summary.find("###Work_rights")]
-        work_rights = job_summary[job_summary.find("###Work_rights")+16:job_summary.find("###Discipline")]
-        discipline = job_summary[job_summary.find("###Discipline")+15:]
+        job_description = response.css('div.campaign-content-container p::text').getall()
+        job_type = response.css('#app > span > div.dashboard-site-container.grey-bg > main > section.grey-bg > div.grid-container > div > div.sides-content-container > div > div.content-panel-container.right-content-panel.padding-left > div.jobinformationsection.landing-side-panel-container > ul > li:nth-child(1)::text').get()
+        discipline = response.css('#app > span > div.dashboard-site-container.grey-bg > main > section.grey-bg > div.grid-container > div > div.sides-content-container > div > div.content-panel-container.right-content-panel.padding-left > div.jobinformationsection.landing-side-panel-container > ul > li:nth-child(2) > div > div::text').get()
+        work_rights = response.css('#app > span > div.dashboard-site-container.grey-bg > main > section.grey-bg > div.grid-container > div > div.sides-content-container > div > div.content-panel-container.right-content-panel.padding-left > div.jobinformationsection.landing-side-panel-container > ul > li:nth-child(3) > div > div::text').get()
+        work_from_home = response.css('#app > span > div.dashboard-site-container.grey-bg > main > section.grey-bg > div.grid-container > div > div.sides-content-container > div > div.content-panel-container.right-content-panel.padding-left > div.jobinformationsection.landing-side-panel-container > ul > li:nth-child(4) > span::text').get()
+        location = response.css('#app > span > div.dashboard-site-container.grey-bg > main > section.grey-bg > div.grid-container > div > div.sides-content-container > div > div.content-panel-container.right-content-panel.padding-left > div.jobinformationsection.landing-side-panel-container > ul > li:nth-child(5) > span > div > div::text').getall()
+        start_date = response.css('#app > span > div.dashboard-site-container.grey-bg > main > section.grey-bg > div.grid-container > div > div.sides-content-container > div > div.content-panel-container.right-content-panel.padding-left > div.jobinformationsection.landing-side-panel-container > ul > div > li > p::text').getall()
+        closing_date = response.css('#app > span > div.dashboard-site-container.grey-bg > main > section.grey-bg > div.grid-container > div > div.sides-content-container > div > div.content-panel-container.right-content-panel.padding-left > div.jobinformationsection.landing-side-panel-container > ul > li:nth-child(7)::text').getall()
 
         # Get the application link (no need to log in again)
         application_link = self.get_application_link(response.url)
 
         yield {
-            "title": job_title,
-            "company": company,
+            "job_title": job_title,
             "job_description": job_description,
-            "closing_date": closing_date,
-            "work_rights": work_rights,
+            "job_type": job_type,
             "discipline": discipline,
+            "work_rights": work_rights,
+            "work_from_home": work_from_home,
+            "location": location,
+            "start_date": start_date,
+            "closing_date": closing_date,
             "application_link": application_link
         }
 
