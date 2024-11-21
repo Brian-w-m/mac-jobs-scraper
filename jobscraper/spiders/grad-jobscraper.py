@@ -1,5 +1,5 @@
 # Install packages in miniconda (base)
-# Run scrapy crawl jobspider -O output.json
+# Run scrapy crawl jobspider-grad -O output.json
 
 import scrapy
 from playwright.sync_api import sync_playwright

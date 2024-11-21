@@ -1,0 +1,24 @@
+Content-Length: 0
+Date: Thu, 21 Nov 2024 09:08:56 GMT
+Location: https://www.linkedin.com/uas/login?session_redirect=https%3A%2F%2Fwww.linkedin.com%2Ffeed%2F
+X-Fs-Uuid: 000627689daf5415c878bfdf0a348cd6
+Strict-Transport-Security: max-age=31536000
+X-Content-Type-Options: nosniff
+X-Frame-Options: sameorigin
+Content-Security-Policy: default-src 'none'; base-uri 'self'; form-action 'self' *.qualtrics.com; connect-src 'self' wss: blob: *.linkedin.com *.microsoft.com *.lynda.com dpm.demdex.net/id lnkd.demdex.net *.licdn.com linkedin.sc.omtrdc.net/b/ss/ *.skype.com *.skype.net *.office.com *.trouter.io *.qualtrics.com *.agora.io:* *.sd-rtn.com:* www.google.com adservice.google.com pagead2.googlesyndication.com td.doubleclick.net; img-src data: blob: *; font-src data: *; frame-src 'self' blob: *.doubleclick.net www.slideshare.net radar.cedexis.com *.linkedin.com *.licdn.com cdn.embedly.com lichat.azurewebsites.net www.youtube.com www.youtube-nocookie.com www.facebook.com player.vimeo.com embed.ted.com livestream.com embed.gettyimages.com w.soundcloud.com www.lynda.com *.megaphone.fm *.omny.fm *.sounder.fm msit.powerbi.com app.powerbi.com linkedin.github.io www.linkedin-event.com lnkd.demdex.net www.paypal.com *.qualtrics.com www.googletagmanager.com flo.uri.sh; worker-src 'self' blob: static.licdn.com static-exp1.licdn.com static-exp2.licdn.com static-exp3.licdn.com; style-src 'unsafe-inline' static.licdn.com static-exp1.licdn.com static-exp2.licdn.com static-exp3.licdn.com s.c.lnkd.licdn.com static-src.linkedin.com static-lcdn.licdn.com www.linkedin.com/sc/ www.linkedin.com/scds/ qprod.www.linkedin.com/sc/; script-src 'report-sample' 'sha256-6gLjSWp3GRKZCUFvRX5aGHtECD1wVRgJOJp7r0ZQjV0=' 'sha256-3woF8BZ54TeXM+czaH3aXoaJsVpiamuAKFsXDykAR/Q=' static.licdn.com static-exp1.licdn.com static-exp2.licdn.com static-exp3.licdn.com s.c.lnkd.licdn.com static-src.linkedin.com www.linkedin.com/voyager/service-worker-push.js platform.linkedin.com/js/analytics.js platform-akam.linkedin.com/js/analytics.js platform-ecst.linkedin.com/js/analytics.js platform-azur.linkedin.com/js/analytics.js static-lcdn.licdn.com www.linkedin.com/sc/ www.linkedin.com/scds/ qprod.www.linkedin.com/sc/ www.linkedin.com/sw.js www.linkedin.com/voyager/abp-detection.js piwik.corp.linkedin.com/piwik/piwik.js platform.linkedin.com/litms/utag/ platform-akam.linkedin.com/litms/utag/ platform-ecst.linkedin.com/litms/utag/ platform-azur.linkedin.com/litms/utag/ platform.linkedin.com/litms/vendor/ platform-akam.linkedin.com/litms/vendor/ platform-ecst.linkedin.com/litms/vendor/ platform-azur.linkedin.com/litms/vendor/ snap.licdn.com/li.lms-analytics/ www.googletagmanager.com/gtag/js www.googleadservices.com/pagead/ www.google.com/pagead/ googleads.g.doubleclick.net/pagead/ adservice.google.com/pagead/; media-src blob: *; manifest-src 'self'; frame-ancestors 'self' *.www.linkedin.com:* *.prod.linkedin.com
+X-Li-Fabric: prod-lva1
+Pragma: no-cache
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Cache-Control: no-cache, no-store
+X-Li-Pop: cf-prod-lva1-x
+X-Li-Proto: http/1.1
+X-Li-Uuid: AAYnaJ2vVBXIeL/fCjSM1g==
+Set-Cookie: JSESSIONID=ajax:7090481463559582870; SameSite=None; Path=/; Domain=.www.linkedin.com; Secure
+Set-Cookie: lang=v=2&lang=en-us; SameSite=None; Path=/; Domain=linkedin.com; Secure
+Set-Cookie: bcookie="v=2&239ba4b1-d912-4be0-8100-2b52d5756d4f"; domain=.linkedin.com; Path=/; Secure; Expires=Fri, 21-Nov-2025 09:08:55 GMT; SameSite=None
+Set-Cookie: bscookie="v=1&20241121090855d08e5496-1fd0-4533-85d5-60060ec2feb7AQE17AFj84CT2A5D3N5_peA9SKMZALcm"; domain=.www.linkedin.com; Path=/; Secure; Expires=Fri, 21-Nov-2025 09:08:55 GMT; HttpOnly; SameSite=None
+Set-Cookie: lidc="b=VGST00:s=V:r=V:a=V:p=V:g=3494:u=1:x=1:i=1732180135:t=1732266535:v=2:sig=AQH39YtYgG4FwuqjzkXOJZvs8r-WNg98"; Expires=Fri, 22 Nov 2024 09:08:55 GMT; domain=.linkedin.com; Path=/; SameSite=None; Secure
+Set-Cookie: __cf_bm=ytn.LOuNVEUoI1ioWzFtxqBUnybT4XCg8LGxdQwUUw4-1732180136-1.0.1.1-jI7DaMhgKwuzq1uf76oGw99SELuPL_Yvbcp56lr2TvqGLYvqW5._UTZsA2hrBlP3IGoNGCDVOiC7zntG4k_zDw; path=/; expires=Thu, 21-Nov-24 09:38:56 GMT; domain=.linkedin.com; HttpOnly; Secure; SameSite=None
+Cf-Cache-Status: DYNAMIC
+Server: cloudflare
+Cf-Ray: 8e5f89b85c18e6bf-MEL
