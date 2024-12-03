@@ -1,10 +1,11 @@
-Date: Thu, 21 Nov 2024 09:18:05 GMT
+Date: Mon, 02 Dec 2024 11:03:16 GMT
 Content-Type: text/html; charset=utf-8
 X-Powered-By: Express
 Strict-Transport-Security: max-age=31536000; includeSubDomains
 Cache-Control: max-age=1800
-Cf-Cache-Status: MISS
+Cf-Cache-Status: HIT
+Age: 111
 Vary: Accept-Encoding
 Server: cloudflare
-Cf-Ray: 8e5f97174a8dd5d6-SYD
+Cf-Ray: 8ebad454fb225729-SYD
 Content-Encoding: br

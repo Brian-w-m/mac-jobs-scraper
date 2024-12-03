@@ -8,7 +8,7 @@ import os
 
 class JobSpider(scrapy.Spider):
     name = "jobspider-grad"
-    start_urls = ["https://au.gradconnection.com/internships/computer-science/australia/"]
+    start_urls = ["https://au.gradconnection.com/internships/information-technology/"]
 
     # Store cookies here
     cookies = None
@@ -74,25 +74,26 @@ class JobSpider(scrapy.Spider):
         job_type = response.css('#app > span > div.dashboard-site-container.grey-bg > main > section.grey-bg > div.grid-container > div > div.sides-content-container > div > div.content-panel-container.right-content-panel.padding-left > div.jobinformationsection.landing-side-panel-container > ul > li:nth-child(1)::text').get()
         discipline = response.css('#app > span > div.dashboard-site-container.grey-bg > main > section.grey-bg > div.grid-container > div > div.sides-content-container > div > div.content-panel-container.right-content-panel.padding-left > div.jobinformationsection.landing-side-panel-container > ul > li:nth-child(2) > div > div::text').get()
         work_rights = response.css('#app > span > div.dashboard-site-container.grey-bg > main > section.grey-bg > div.grid-container > div > div.sides-content-container > div > div.content-panel-container.right-content-panel.padding-left > div.jobinformationsection.landing-side-panel-container > ul > li:nth-child(3) > div > div::text').get()
-        work_from_home = response.css('#app > span > div.dashboard-site-container.grey-bg > main > section.grey-bg > div.grid-container > div > div.sides-content-container > div > div.content-panel-container.right-content-panel.padding-left > div.jobinformationsection.landing-side-panel-container > ul > li:nth-child(4) > span::text').get()
-        location = response.css('#app > span > div.dashboard-site-container.grey-bg > main > section.grey-bg > div.grid-container > div > div.sides-content-container > div > div.content-panel-container.right-content-panel.padding-left > div.jobinformationsection.landing-side-panel-container > ul > li:nth-child(5) > span > div > div::text').getall()
-        start_date = response.css('#app > span > div.dashboard-site-container.grey-bg > main > section.grey-bg > div.grid-container > div > div.sides-content-container > div > div.content-panel-container.right-content-panel.padding-left > div.jobinformationsection.landing-side-panel-container > ul > div > li > p::text').getall()
-        closing_date = response.css('#app > span > div.dashboard-site-container.grey-bg > main > section.grey-bg > div.grid-container > div > div.sides-content-container > div > div.content-panel-container.right-content-panel.padding-left > div.jobinformationsection.landing-side-panel-container > ul > li:nth-child(7)::text').getall()
+        location = response.css('#app > span > div.dashboard-site-container.grey-bg > main > section.grey-bg > div.grid-container > div > div.sides-content-container > div > div.content-panel-container.right-content-panel.padding-left > div.jobinformationsection.landing-side-panel-container > ul > li:nth-child(5) > span > div > div::text').get()
+        start_date = response.css('#app > span > div.dashboard-site-container.grey-bg > main > section.grey-bg > div.grid-container > div > div.sides-content-container > div > div.content-panel-container.right-content-panel.padding-left > div.jobinformationsection.landing-side-panel-container > ul > div > li > p::text').get()
+        closing_date = response.css('#app > span > div.dashboard-site-container.grey-bg > main > section.grey-bg > div.grid-container > div > div.sides-content-container > div > div.content-panel-container.right-content-panel.padding-left > div.jobinformationsection.landing-side-panel-container > ul > li:nth-child(7)::text').get()
+        company = response.css('.dashboard-site-container .employers-panel-logo h1::text').get()
 
         # Get the application link (no need to log in again)
         application_link = self.get_application_link(response.url)
 
         yield {
-            "job_title": job_title,
-            "job_description": job_description,
-            "job_type": job_type,
-            "discipline": discipline,
-            "work_rights": work_rights,
-            "work_from_home": work_from_home,
+            "title": job_title,
+            "description": job_description,
+            "company": company,
+            "application_url": application_link,
+            "source_url": response.url,
+            "type": job_type,
+            "close_date": closing_date,
             "location": location,
+            "study_field": discipline,
             "start_date": start_date,
-            "closing_date": closing_date,
-            "application_link": application_link
+            "work_rights": work_rights
         }
 
     def get_application_link(self, url):
